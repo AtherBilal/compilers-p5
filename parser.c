@@ -79,7 +79,7 @@ node_t *S(){
 		return node;
 	}
 	else{
-		printf("Error: Invalid Token, Expected VOID_tk -- %s Received At Line %d\n", tokenName[tk.id], lineNum);
+		printf("Error: Invalid Token, Expected PROGRAM_tk -- %s Received At Line %d\n", tokenName[tk.id], lineNum);
 		exit(EXIT_FAILURE);
 	}
 }
@@ -113,28 +113,25 @@ node_t *V(int level)
 {
 	level++;
 	node_t *node = createNode("<V>", level);
-	if(tk.id == VAR_tk)
-  {											
-	tk = scanner(input, &lineNum);
-	if(tk.id == ID_tk) {
-		node->token = tk;
+	if(tk.id == VAR_tk) {
 		tk = scanner(input, &lineNum);
-		  
-        if(tk.id == PERIOD_tk) {
-        	node->token =tk;
-        	tk = scanner(input, &lineNum);
-		    node->child1 = V(level);
-			return node;
-        } else {
-        	printf("Error: Invalid Token, Expected PERIOD_tk -- %s Received At Line %d\n", tokenName[tk.id], lineNum);
-        	exit(EXIT_FAILURE);
-        }
+		if(tk.id == ID_tk) {
+			node->token = tk;
+			tk = scanner(input, &lineNum);
 
-		return node;
+			if(tk.id == PERIOD_tk) {
+				node->token = tk;
+				tk = scanner(input, &lineNum);
+				node->child1 = V(level);
+				return node;
+			} else {
+				printf("Error: Invalid Token, Expected PERIOD_tk -- %s Received At Line %d\n", tokenName[tk.id], lineNum);
+				exit(EXIT_FAILURE);
+			}
 		} else {
 			printf("Error: Invalid Token, Expected ID_tk -- %s Received At Line %d\n", tokenName[tk.id], lineNum);
 			exit(EXIT_FAILURE);
-    	}
+		}
 	}
 	return NULL;															
 }
@@ -167,8 +164,7 @@ node_t *M(int level)
 		tk = scanner(input, &lineNum);
 		node->child2 = M(level);
 		return node;
-	}
-	else {
+	} else {
 		return node;
 	}
   } else {
@@ -177,7 +173,8 @@ node_t *M(int level)
   }
 }
 
-node_t *H(int level) {
+// <H> -> & <R> | <R>
+node_t *H (int level) {
   level++;
   node_t *node = createNode("<H>", level);
   if(tk.id == AND_tk) {
@@ -215,14 +212,13 @@ node_t *Q(int level){
 		level++;
 		node_t *node = createNode("<Q>", level);
 		node->child1 = T(level);
-		// change pct to #
 		if(tk.id == NUM_tk){
 			node->token = tk;
 			tk = scanner(input, &lineNum);
 			node->child2 = Q(level);
 			return node;
 		} else {
-			printf("Error: Expected HASH -- %s Returned at Line %d\n", tokenName[tk.id], lineNum);
+			printf("Error: Expected NUM_tk -- %s Returned at Line %d\n", tokenName[tk.id], lineNum);
 			exit(EXIT_FAILURE);
 		}
 	} else {
@@ -230,8 +226,8 @@ node_t *Q(int level){
 	}
 }
 
-node_t *T(int level)
-{
+// <T> -> <A> , | <W> , | <B> | <I> , | <G> , | <E> ,
+node_t *T(int level) {
   	level++;
 	node_t *node = createNode("<T>", level);
 	if(tk.id == SCAN_tk){
@@ -277,7 +273,7 @@ node_t *T(int level)
 			printf("Parser Error: Expected COMMA_tk -- %s Returned at Line %d\n", tokenName[tk.id], lineNum);
 			exit(EXIT_FAILURE);
 		}
-	} else if(tk.id == LET_tk) {									    
+	} else if(tk.id == LET_tk) {
 		node->child1 = E(level);
 		if(tk.id == COMMA_tk){
 			node->token =tk;
@@ -347,18 +343,15 @@ node_t *I (int level) {
 				tk = scanner(input, &lineNum);
 				node->child4 = T(level);
 				return node;
-			}
-			else{
-				printf("Parser Error: Expected OPENBRACKET_tk -- %s Returned at Line %d\n", tokenName[tk.id], lineNum);
+			} else {
+				printf("Parser Error: Expected CLOSEBRACKET_tk -- %s Returned at Line %d\n", tokenName[tk.id], lineNum);
 				exit(EXIT_FAILURE);
 			}
-		}
-		else{
-			printf("Parser Error: Expected CLOSEBRACKET_tk -- %s Returned at Line %d\n", tokenName[tk.id], lineNum);
+		} else {
+			printf("Parser Error: Expected OPENBRACKET_tk -- %s Returned at Line %d\n", tokenName[tk.id], lineNum);
 			exit(EXIT_FAILURE);
 		}
-	}
-	else{
+	} else {
 		printf("Parser Error: Expected IF_tk -- %s Returned at Line %d\n", tokenName[tk.id], lineNum);
 		exit(EXIT_FAILURE);
 	}
@@ -367,7 +360,7 @@ node_t *I (int level) {
 
 // <G> -> repeat [ <M> <Z> <M> ] <T>
 node_t *G (int level) {
-  if(tk.id == REPEAT_tk){
+  if(tk.id == REPEAT_tk) {
 		tk = scanner(input, &lineNum);
 		if(tk.id == OPENBRACKET_tk){
 			level++;
@@ -381,11 +374,11 @@ node_t *G (int level) {
 				node->child4 = T(level);
 				return node;
 			} else {
-				printf("Parser Error: Expected OPENBRACKET_tk -- %s Returned at Line %d\n", tokenName[tk.id], lineNum);
+				printf("Parser Error: Expected CLOSEBRACKET_tk -- %s Returned at Line %d\n", tokenName[tk.id], lineNum);
 				exit(EXIT_FAILURE);
 			}
 		} else {
-			printf("Parser Error: Expected CLOSEBRACKET_tk -- %s Returned at Line %d\n", tokenName[tk.id], lineNum);
+			printf("Parser Error: Expected OPENBRACKET_tk -- %s Returned at Line %d\n", tokenName[tk.id], lineNum);
 			exit(EXIT_FAILURE);
 		}
 	} else {
@@ -398,9 +391,9 @@ node_t *G (int level) {
 node_t *E (int level) {
 	level++;
 	node_t *node = createNode("<E>", level);
-	if(tk.id == LET_tk){											
+	if(tk.id == LET_tk) {
 		tk = scanner(input, &lineNum);
-		if(tk.id == ID_tk){
+		if(tk.id == ID_tk) {
 			node->token = tk;
 			tk = scanner(input, &lineNum);
         	if(tk.id == COLON_tk) {
