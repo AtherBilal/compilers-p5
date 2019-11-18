@@ -1,0 +1,20 @@
+Mohammed Bilal Ather
+P2
+------------------------------------------------------------------------
+To compile: 
+
+run `make`
+
+To clean: 
+
+run `make clean`
+
+To run from input:
+
+run `./frontEnd`
+
+to run from file
+
+run `./frontEnd < filename` OR
+
+run `./frontEnd filename`

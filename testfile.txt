@@ -1,0 +1,5 @@
+program
+begin
+scan id1 ,
+#
+end

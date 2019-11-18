@@ -1,0 +1,8 @@
+program
+begin
+begin
+write & 25 ,
+#
+end
+#
+end
