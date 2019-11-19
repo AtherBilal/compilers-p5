@@ -1,8 +1,9 @@
 program
+var id1 .
+var id2 .
 begin
-begin
-write & 25 ,
-#
-end
+var id3 .
+if [ id1 > 14 ]
+write id3 , ,
 #
 end

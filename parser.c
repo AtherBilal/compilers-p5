@@ -120,7 +120,7 @@ node_t *V(int level)
 			tk = scanner(input, &lineNum);
 
 			if(tk.id == PERIOD_tk) {
-				node->token = tk;
+				node->token2 = tk;
 				tk = scanner(input, &lineNum);
 				node->child1 = V(level);
 				return node;
@@ -178,9 +178,9 @@ node_t *H (int level) {
   level++;
   node_t *node = createNode("<H>", level);
   if(tk.id == AND_tk) {
+    node->token = tk;
 	tk =scanner(input, &lineNum);
     node->child1 = R(level);
-    node->token = tk;
     return node;
   } else {
     node->child1 = R(level);
@@ -233,7 +233,7 @@ node_t *T(int level) {
 	if(tk.id == SCAN_tk){
 		node->child1 = A(level);
 		if(tk.id == COMMA_tk){
-			node->token =tk;
+			node->token = tk;
 			tk = scanner(input, &lineNum);
 			return node;
 		} else {
@@ -256,7 +256,7 @@ node_t *T(int level) {
 	} else if(tk.id == IF_tk) {								   
 		node->child1 = I(level);
 		if(tk.id == COMMA_tk) {
-			node->token =tk;
+			node->token = tk;
 			tk = scanner(input, &lineNum);
 			return node;
 		} else {
@@ -266,7 +266,7 @@ node_t *T(int level) {
 	} else if(tk.id == REPEAT_tk) {									
 		node->child1 = G(level);
 		if(tk.id == COMMA_tk){
-			node->token =tk;
+			node->token = tk;
 			tk = scanner(input, &lineNum);
 			return node;
 		} else {
@@ -276,7 +276,7 @@ node_t *T(int level) {
 	} else if(tk.id == LET_tk) {
 		node->child1 = E(level);
 		if(tk.id == COMMA_tk){
-			node->token =tk;
+			node->token = tk;
 			tk = scanner(input, &lineNum);
 			return node;
 		} else {
@@ -335,11 +335,13 @@ node_t *I (int level) {
 		if(tk.id == OPENBRACKET_tk){
 			level++;
 			node_t *node = createNode("<I>", level);
+			node->token = tk;
 			tk = scanner(input, &lineNum);
 			node->child1 = M(level);
 			node->child2 = Z(level);
 			node->child3 = M(level);
 			if(tk.id == CLOSEBRACKET_tk){
+				node->token2 = tk;
 				tk = scanner(input, &lineNum);
 				node->child4 = T(level);
 				return node;
@@ -365,11 +367,13 @@ node_t *G (int level) {
 		if(tk.id == OPENBRACKET_tk){
 			level++;
 			node_t *node = createNode("<G>", level);
+			node->token = tk;
 			tk = scanner(input, &lineNum);
 			node->child1 = M(level);
 			node->child2 = Z(level);
 			node->child3 = M(level);
 			if(tk.id == CLOSEBRACKET_tk){
+				node->token2 = tk;
 				tk = scanner(input, &lineNum);
 				node->child4 = T(level);
 				return node;
@@ -397,7 +401,7 @@ node_t *E (int level) {
 			node->token = tk;
 			tk = scanner(input, &lineNum);
         	if(tk.id == COLON_tk) {
-				node->token =tk;
+				node->token2 =tk;
 				tk = scanner(input, &lineNum);
 				node->child1 = M(level);
 				return node;
