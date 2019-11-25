@@ -26,7 +26,7 @@ void variablesInit(void) {
 void insert(token variable) {
 	//Warn too many variables
 	if(varCount == MAXVARSIZE){
-		printf("variables is Full\n");
+		printf("Variables are full\n");
 		exit(EXIT_FAILURE);
 	}
 	//Check for variable existence before insertion
@@ -39,7 +39,7 @@ void insert(token variable) {
 	//insert token to the variables 
 	variables[varCount] = variable;
  
-	//Increment number of vars on variables
+	//Increment number of variables
 	varCount++;
 }
 
@@ -54,6 +54,7 @@ bool verify(char *var) {
 	return false;
 }
 
+// checking for variable declariations
 void semanticCheck(node_t *node) {
 	
 	if(node == NULL){
@@ -93,6 +94,7 @@ void semanticCheck(node_t *node) {
 	return;
 }
 
+// prints all symbols
 void printSymbolTable(){
     int i;
     for (i = 0; i < varCount; i++){
