@@ -9,6 +9,8 @@
 #include "parser.h"
 #include "node.h"
 #include "testTree.h"
+#include "staticSemantics.h"
+
 
 
 int main(int argc, char* argv[]){
@@ -37,8 +39,10 @@ int main(int argc, char* argv[]){
 		if(!feof(input)){
 			tree = parser();
 		}
-   
- 		printPreorder(tree);
+		printf("Semantic Check Started\n");
+		semanticCheck(tree);
+		printf("Semantic Check Complete\n");
+		printSymbolTable();
 		fclose(input);
 	} else {
 		char *fileName = argv[1];
@@ -53,7 +57,10 @@ int main(int argc, char* argv[]){
 		if(!feof(input)) {
 			tree = parser();
 		}
-   		printPreorder(tree);
+		printf("Semantic Check Started\n");
+		semanticCheck(tree);
+		printf("Semantic Check Complete\n");
+		printSymbolTable();
 		fclose(input);
 	}
 	return 0; 

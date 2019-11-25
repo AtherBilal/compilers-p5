@@ -1,0 +1,8 @@
+program
+var id1 .
+var id2 .
+begin
+if [ id1 > 14 ]
+scan id3 , ,
+#
+end

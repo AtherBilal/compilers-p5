@@ -1,0 +1,9 @@
+program
+begin
+let id1 : 5 ,
+#
+begin
+var id1 .
+end
+#
+end

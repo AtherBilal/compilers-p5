@@ -36,7 +36,7 @@ void printPreorder(node_t *root){
 		printPreorder(root->child4);
 }
 
-//string concatenation function
+// string concatenation function
 char *concat(const char *string1, const char *string2){
   char *newString = malloc(snprintf(NULL, 0, "%s %s", string1, string2) + 1);
   if(newString == NULL){

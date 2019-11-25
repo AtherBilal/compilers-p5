@@ -11,10 +11,12 @@ run `make clean`
 
 To run from input:
 
-run `./frontEnd`
+run `./staticSem`
 
 to run from file
 
-run `./frontEnd < filename` OR
+run `./staticSem < filename` OR
 
-run `./frontEnd filename`
+run `./staticSem filename`
+
+NOTE: If a variable is declared twice or used without declaration, then this program will throw an error
