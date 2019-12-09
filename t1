@@ -1,0 +1,13 @@
+program
+var id1 .
+var id2 .
+begin
+let id1 : 7 ,
+#
+if [ id1 > 2 ]
+  repeat [ id1 : 7 ]
+    let id1 : 31 , , ,
+#
+write id1 ,
+#
+end

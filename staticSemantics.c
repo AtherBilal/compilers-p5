@@ -8,9 +8,6 @@
 
 token variables[MAXVARSIZE];
 
-//number of vars 
-static int varCount = 0;
-
 //Loop counter var
 int i = 0;
 
@@ -98,6 +95,6 @@ void semanticCheck(node_t *node) {
 void printSymbolTable(){
     int i;
     for (i = 0; i < varCount; i++){
-        printf("line %d: identifier '%s'\n", variables[i].line, variables[i].tkString);
+        printf("'%s'\n", variables[i].tkString);
     }
 }

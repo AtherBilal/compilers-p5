@@ -1,0 +1,49 @@
+program
+var aa .
+var whozit .
+begin
+  var bb .
+  let bb : 5
+  ,#
+  scan aa
+  ,#
+  if [ aa > bb ]
+    begin
+      let bb : aa
+      ,#
+      write aa - 2 * bb + 4 / 3
+      ,#
+      if [ 0 - 91 + 1 < aa * 5 / 5 + 1 - 1 ]
+        begin
+          write 91
+          ,#
+          if [ 0 : 0 ]
+            begin
+              var idx .
+              if [ 1 = 2 ]
+                write 9000
+                ,
+              ,#
+              if [ 2 == 2 ]
+                repeat [ idx < 21 ]
+                  begin
+                    if [ idx / 2 * 2 == idx ]
+                      write idx
+                      ,
+                    ,#
+                    let idx : idx + 1
+                    ,#
+                  end
+                ,
+              ,#
+            end
+          ,#
+        end
+      ,#
+    end
+  ,#
+  scan whozit
+  ,#
+  write 1 - &whozit + 21 - 5
+  ,#
+end

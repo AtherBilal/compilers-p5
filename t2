@@ -1,0 +1,19 @@
+program
+var aa .
+begin
+  var bb .
+  let bb : 5
+  ,#
+  scan aa
+  ,#
+  if [ aa > bb ]
+    begin
+      let bb : aa - 10
+      ,#
+      let bb : &bb + 9
+      ,#
+      write bb
+      ,#
+    end
+  ,#
+end

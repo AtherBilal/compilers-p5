@@ -10,11 +10,13 @@
 #include "node.h"
 #include "testTree.h"
 #include "staticSemantics.h"
+#include "codeGeneration.h"
 
 
 
 int main(int argc, char* argv[]){
 	node_t *tree = NULL;
+	FILE *outputFile;
  
 	if (argc > 2){
 		printf("Error: Too many arguments.\n");
@@ -24,7 +26,7 @@ int main(int argc, char* argv[]){
 	if(argc == 1){
 		// input file pointer 
 		input = stdin;
-	
+
    		// if stdin open fails
 		if (input == NULL){
 			fprintf(stderr, "Stdin Error: %s\n", strerror(errno));
@@ -43,6 +45,10 @@ int main(int argc, char* argv[]){
 		semanticCheck(tree);
 		printf("Semantic Check Complete\n");
 		printSymbolTable();
+  		outputFile = fopen("kb.asm", "w");
+		codeGeneration(tree, outputFile);
+		writeVariables(outputFile);
+		fclose(outputFile);
 		fclose(input);
 	} else {
 		char *fileName = argv[1];
@@ -60,8 +66,15 @@ int main(int argc, char* argv[]){
 		printf("Semantic Check Started\n");
 		semanticCheck(tree);
 		printf("Semantic Check Complete\n");
-		printSymbolTable();
+		char *outExtension = ".asm";
+		char *outputFileName = malloc(snprintf(NULL, 0, "%s%s", argv[1], outExtension) + 1);
+		sprintf(outputFileName, "%s%s", argv[1], outExtension);
+		outputFile = fopen(outputFileName, "w");
+		codeGeneration(tree, outputFile);
+		writeVariables(outputFile);
 		fclose(input);
+		fclose(outputFile);
+
 	}
 	return 0; 
 }

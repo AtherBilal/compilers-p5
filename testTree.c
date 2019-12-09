@@ -37,12 +37,12 @@ void printPreorder(node_t *root){
 }
 
 // string concatenation function
-char *concat(const char *string1, const char *string2){
-  char *newString = malloc(snprintf(NULL, 0, "%s %s", string1, string2) + 1);
-  if(newString == NULL){
-	printf("Concat Failed\n");
-	exit(EXIT_FAILURE);
-  }
-  sprintf(newString, "%s %s", string1, string2);
-  return newString;
-}
+// char *concat(const char *string1, const char *string2){
+//   char *newString = malloc(snprintf(NULL, 0, "%s %s", string1, string2) + 1);
+//   if(newString == NULL){
+// 	printf("Concat Failed\n");
+// 	exit(EXIT_FAILURE);
+//   }
+//   sprintf(newString, "%s %s", string1, string2);
+//   return newString;
+// }

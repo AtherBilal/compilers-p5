@@ -10,6 +10,8 @@
 #include "token.h"
 #include "node.h"
 
+token variables[MAXVARSIZE];
+int varCount;
 
 void variablesInit(void);
 void insert(token variable);

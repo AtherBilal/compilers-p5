@@ -1,7 +1,8 @@
 #makefile for P3
 
 all: *.c
-	gcc -std=c99 -g -Wall -o staticSem  *.c
+	gcc -std=c99 -g -Wall -o compile  *.c
 
 clean:
-	$(RM) staticSem
+	$(RM) compile
+	$(RM) *.asm

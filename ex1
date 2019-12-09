@@ -2,5 +2,7 @@ program
 var id1 .
 begin
 scan id1 ,
+# 
+write id1 ,
 #
 end
