@@ -28,7 +28,6 @@ static int labelCounter = 1;
 static int count = 0;
 
 void codeGeneration(node_t *node, FILE *outputFile){
-    // printf("starting code gen\n");
     if(outputFile == NULL){
         printf("outputFile failed to open");
         exit(EXIT_FAILURE);
@@ -72,7 +71,6 @@ void generateW(node_t *node, FILE *outputFile){
     fprintf(outputFile, "WRITE %s\n", tempVar);
     count = 0;
 }
-
 
 
 char *createTempVar(){
@@ -172,12 +170,11 @@ void generateT(node_t *node, FILE *outputFile){
     }
 }
 
-
-//Here is the nonterminal, 'I', for if statements
+// if statements
 void generateI(node_t *node, FILE *outputFile){
     char *temp;
     char *label;
-    char *oper;
+    char *operatorStr;
 
     if (node->child3 != NULL){
         generateM(node->child3, outputFile);
@@ -196,15 +193,15 @@ void generateI(node_t *node, FILE *outputFile){
 
     label = createLabel();
 
-    oper = generateZ(node->child2);
+    operatorStr = generateZ(node->child2);
 
-    if(strcmp(oper, ">") == 0){
+    if(strcmp(operatorStr, ">") == 0){
         fprintf(outputFile, "BRZNEG %s\n", label);
     }
-    else if(strcmp(oper, "<") == 0){
+    else if(strcmp(operatorStr, "<") == 0){
         fprintf(outputFile, "BRZPOS %s\n", label);
     }
-    else if(strcmp(oper, "=") == 0|| strcmp(oper, "==") == 0 || strcmp(oper, ":") == 0){
+    else if(strcmp(operatorStr, "=") == 0|| strcmp(operatorStr, "==") == 0 || strcmp(operatorStr, ":") == 0){
         fprintf(outputFile, "BRNEG %s\n", label);
         fprintf(outputFile, "BRPOS %s\n", label);
     } else {
@@ -233,7 +230,7 @@ void generateG(node_t *node, FILE *outputFile){
     char *temp;
     char *label1;
     char *label2;
-    char *oper;
+    char *operatorStr;
 
     label1 = createLabel();
     label2 = createLabel();
@@ -251,15 +248,15 @@ void generateG(node_t *node, FILE *outputFile){
 
     fprintf(outputFile,"SUB %s\n", temp);
 
-    oper = generateZ(node->child2);
+    operatorStr = generateZ(node->child2);
 
-    if(strcmp(oper, ">") == 0){
+    if(strcmp(operatorStr, ">") == 0){
         fprintf(outputFile, "BRZNEG %s\n", label2);
     }
-    else if(strcmp(oper, "<") == 0){
+    else if(strcmp(operatorStr, "<") == 0){
         fprintf(outputFile, "BRZPOS %s\n", label2);
     }
-    else if(strcmp(oper, "=") == 0|| strcmp(oper, "==") == 0 || strcmp(oper, ":") == 0){
+    else if(strcmp(operatorStr, "=") == 0|| strcmp(operatorStr, "==") == 0 || strcmp(operatorStr, ":") == 0){
         fprintf(outputFile, "BRNEG %s\n", label2);
         fprintf(outputFile, "BRPOS %s\n", label2);
     } else {

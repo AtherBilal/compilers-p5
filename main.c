@@ -44,10 +44,11 @@ int main(int argc, char* argv[]){
 		printf("Semantic Check Started\n");
 		semanticCheck(tree);
 		printf("Semantic Check Complete\n");
-		printSymbolTable();
   		outputFile = fopen("kb.asm", "w");
+		printf("Code generation Started\n");
 		codeGeneration(tree, outputFile);
 		writeVariables(outputFile);
+		printf("Code generation Complete\n");
 		fclose(outputFile);
 		fclose(input);
 	} else {
@@ -70,8 +71,10 @@ int main(int argc, char* argv[]){
 		char *outputFileName = malloc(snprintf(NULL, 0, "%s%s", argv[1], outExtension) + 1);
 		sprintf(outputFileName, "%s%s", argv[1], outExtension);
 		outputFile = fopen(outputFileName, "w");
+		printf("Code generation Started\n");
 		codeGeneration(tree, outputFile);
 		writeVariables(outputFile);
+		printf("Code generation Complete\n");
 		fclose(input);
 		fclose(outputFile);
 
